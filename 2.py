@@ -62,7 +62,6 @@ cube_colors = [(0, 128, 255), (255, 0, 0), (0, 255, 0), (255, 255, 0)]
 current_color_index = 0
 last_color_change_time = pygame.time.get_ticks()
 
-# Статические платформы (10 платформ)
 platforms = [
     pygame.Rect(400, 550, platform_width, platform_height),
     pygame.Rect(200, 400, platform_width, platform_height),
@@ -73,7 +72,7 @@ platforms = [
     pygame.Rect(1000, 250, platform_width, platform_height),
     pygame.Rect(1150, 200, platform_width, platform_height),
     pygame.Rect(1300, 150, platform_width, platform_height),
-    pygame.Rect(1450, 100, platform_width, platform_height)  # 10 платформ
+    pygame.Rect(1450, 100, platform_width, platform_height)
 ]
 
 
@@ -83,7 +82,7 @@ class Bomb(pygame.sprite.Sprite):
         self.image = bomb_image
         self.rect = self.image.get_rect(topleft=(x, y))
         self.mask = pygame.mask.from_surface(self.image)
-        self.speed = bomb_speed  # Изменяем скорость бомбы
+        self.speed = bomb_speed  # Изменяем скорость бомбы(это нужно для того чтобы усложнить игру)
 
     def update(self):
         self.rect.x -= self.speed
@@ -185,11 +184,11 @@ def game_over():
     pygame.time.delay(2000)
 
 
-def create_bomb():
+def create_bomb():  # Та самая смешная функция
     if len(bombs) < 4:
-        spawn_x = random.randint(screen_width + 200, screen_width + 900)  # Спаун бомбы за пределами видимости игрока
+        spawn_x = random.randint(screen_width + 200, screen_width + 900)
         spawn_y = random.randint(max(0, player_pos[1] - 100),
-                                 min(screen_height, player_pos[1] + 100))  # Задаем Y-координаты около игрока
+                                 min(screen_height, player_pos[1] + 100))
         new_bomb = Bomb(spawn_x, spawn_y)
         bombs.add(new_bomb)
 
@@ -202,7 +201,7 @@ def main_game():
     camera_x = 0
 
     while True:
-        elapsed_time = (pygame.time.get_ticks() - timer_start) // 1000  # Обновление времени в секундах
+        elapsed_time = (pygame.time.get_ticks() - timer_start) // 1000
         current_time = pygame.time.get_ticks()
 
         if current_time - speed_increase_time >= 5000:
